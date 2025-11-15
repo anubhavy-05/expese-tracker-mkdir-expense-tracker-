@@ -11,3 +11,8 @@ h1 {
   text-align: center;
   margin-top: 20px;
 }
+.container {
+  width: 90%;
+  max-width: 800px;
+  margin: 0 auto;
+}
