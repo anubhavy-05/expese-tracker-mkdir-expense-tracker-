@@ -22,3 +22,9 @@ h1 {
   border-radius: 8px;
   margin-top: 20px;
 }
+.form-control {
+  /* We will use flexbox to stack the label and input vertically */
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
