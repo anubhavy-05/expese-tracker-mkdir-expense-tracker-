@@ -28,3 +28,7 @@ h1 {
   flex-direction: column;
   margin-bottom: 15px;
 }
+.form-control label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
