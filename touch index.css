@@ -64,3 +64,15 @@ h2 {
   font-size: 1.2rem;
   color: #333;
 }
+.expense-item {
+  background: #fff;
+  border-bottom: 1px solid #eee;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between; /* Pushes items to edges */
+  align-items: center;
+}
+.expense-info h4 {
+  margin: 0;
+  font-size: 16px;
+}
