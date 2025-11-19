@@ -16,3 +16,16 @@ const amount = amountInput.value;
 const date = dateInput.value;
 // 2. Log the values to the console for testing
 console.log('New Expense:', { name, amount, date });
+// Global array to store all expenses
+let expenses = []; 
+// const form = document.getElementById('expense-form'); (Your existing code starts here)
+// 3. Create the expense object
+const expense = {
+    id: Date.now(), // Unique ID based on the current time (milliseconds)
+    name: name,
+    amount: parseFloat(amount), // Convert the string amount to a number
+    date: date
+};
+
+// 4. Add the new object to the global array
+expenses.push(expense);
