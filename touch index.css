@@ -58,3 +58,9 @@ h2 {
   margin-bottom: 15px;
   text-align: center;
 }
+#total-amount {
+  text-align: right; /* Puts it on the right side */
+  margin-top: 20px;
+  font-size: 1.2rem;
+  color: #333;
+}
