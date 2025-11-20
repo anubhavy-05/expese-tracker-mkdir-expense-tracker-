@@ -70,3 +70,9 @@ const itemHTML = `
     </div>
 `;
 // The toFixed(2) ensures the amount has two decimal places (e.g., 5.00)
+expenseList.innerHTML += itemHTML;
+// 5. Save the updated array to Local Storage
+saveExpenses();
+
+// 6. Update the display on the screen
+renderExpenses(); // <--- ADD THIS LINE
