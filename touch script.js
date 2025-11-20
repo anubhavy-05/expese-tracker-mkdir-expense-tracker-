@@ -76,3 +76,8 @@ saveExpenses();
 
 // 6. Update the display on the screen
 renderExpenses(); // <--- ADD THIS LINE
+// Function to retrieve and load expenses from Local Storage
+function loadExpenses() {
+
+}
+const saved = localStorage.getItem('expenses');
