@@ -57,3 +57,16 @@ expenseList.innerHTML = '';
 expenses.forEach(expense => {
     // This code will run for every item in the expenses array
 });
+const itemHTML = `
+    <div class="expense-item" data-id="${expense.id}">
+        <div class="expense-info">
+            <h4>${expense.name}</h4>
+            <small>${expense.date}</small>
+        </div>
+        <div class="expense-cost">
+            <span>$${expense.amount.toFixed(2)}</span>
+            <button class="delete-btn" data-id="${expense.id}">&times;</button>
+        </div>
+    </div>
+`;
+// The toFixed(2) ensures the amount has two decimal places (e.g., 5.00)
