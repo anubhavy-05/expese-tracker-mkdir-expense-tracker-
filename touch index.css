@@ -93,3 +93,11 @@ h2 {
   cursor: pointer;
   font-size: 14px;
 }
+/* Day 11: Media Query for smaller screens (max-width 600px) */
+@media (max-width: 600px) {
+
+}
+.container {
+    width: 95%; /* Make it take up slightly more screen space */
+    padding: 0 10px;
+}
