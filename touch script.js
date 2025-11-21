@@ -106,3 +106,15 @@ function deleteExpense(event) {
     renderExpenses();
     const idToDelete = parseInt(event.target.dataset.id); // <--- Use parseInt
 }
+// Select the total display element
+const totalAmountElement = document.getElementById('total-amount');
+// Function to calculate and update the total expense amount
+function updateTotal() {
+    // 1. Calculate the total sum of all amounts in the expenses array
+    const total = expenses.reduce((sum, expense) => {
+        return sum + expense.amount;
+    }, 0); // Start the sum at 0
+
+    // 2. Format the number to 2 decimal places and update the HTML element
+    totalAmountElement.textContent = `Total: $${total.toFixed(2)}`;
+}
