@@ -1,19 +1,38 @@
-// Day 5 & 7: Global Data and Element Selection
+// =======================================================
+// DAY 1, 3, 4, 9: GLOBAL VARIABLES & ELEMENT SELECTION
+// =======================================================
 let expenses = []; 
 
 const form = document.getElementById('expense-form');
 const nameInput = document.getElementById('expense-name');
 const amountInput = document.getElementById('expense-amount');
 const dateInput = document.getElementById('expense-date');
-const expenseList = document.getElementById('expense-list'); // Day 6: List Container
+const expenseList = document.getElementById('expense-list');
+const totalAmountElement = document.getElementById('total-amount'); // Day 9: Total Element
 
-// Day 5: Save function
+// =======================================================
+// DAY 9: UPDATE TOTAL
+// =======================================================
+function updateTotal() {
+    // Uses .reduce() to sum all expense amounts
+    const total = expenses.reduce((sum, expense) => {
+        return sum + expense.amount;
+    }, 0); 
+
+    totalAmountElement.textContent = `Total: $${total.toFixed(2)}`;
+}
+
+// =======================================================
+// DAY 5: SAVE FUNCTION
+// =======================================================
 function saveExpenses() {
     const expenseJSON = JSON.stringify(expenses);
     localStorage.setItem('expenses', expenseJSON);
 }
 
-// Day 7: Load function
+// =======================================================
+// DAY 7: LOAD FUNCTION
+// =======================================================
 function loadExpenses() {
     const saved = localStorage.getItem('expenses');
     
@@ -23,11 +42,29 @@ function loadExpenses() {
         expenses = [];
     }
     
-    // We will call updateTotal later on Day 10
     renderExpenses();
+    updateTotal(); // Day 9: Call after loading
 }
 
-// Day 6: Render function
+// =======================================================
+// DAY 8: DELETE FUNCTION
+// =======================================================
+function deleteExpense(event) {
+    // Get the ID from the custom data attribute
+    const idToDelete = parseInt(event.target.dataset.id); 
+
+    // Filter out the expense with the matching ID
+    expenses = expenses.filter(expense => expense.id !== idToDelete);
+
+    // Update storage and display
+    saveExpenses();
+    renderExpenses();
+    updateTotal(); // Day 9: Call after deleting
+}
+
+// =======================================================
+// DAY 6 & 8: RENDER FUNCTION (The List Builder)
+// =======================================================
 function renderExpenses() {
     expenseList.innerHTML = '';
     
@@ -46,24 +83,29 @@ function renderExpenses() {
         `;
         expenseList.innerHTML += itemHTML;
     });
+
+    // Day 8: Attach listeners *after* buttons are created
+    document.querySelectorAll('.delete-btn').forEach(button => {
+        button.addEventListener('click', deleteExpense);
+    });
 }
 
-// Day 4 & 5 & 6 & 7: Add Expense Handler
+// =======================================================
+// DAY 4 & 5 & 9: ADD EXPENSE HANDLER
+// =======================================================
 function addExpense(event) {
-    event.preventDefault(); // Stop the page from refreshing
+    event.preventDefault();
 
-    // 1. Get the values
     const name = nameInput.value.trim();
     const amount = amountInput.value;
     const date = dateInput.value;
     
-    // Simple validation: If any field is empty, stop.
+    // Validation
     if (name === '' || amount === '' || date === '') {
         alert("Please fill out all fields.");
         return; 
     }
 
-    // 2. Create the expense object
     const expense = {
         id: Date.now(),
         name: name,
@@ -71,64 +113,26 @@ function addExpense(event) {
         date: date
     };
 
-    // 3. Update data
     expenses.push(expense); 
     saveExpenses();
     
-    // 4. Update display
-    renderExpenses(); 
+    // Update display and total
+    renderExpenses();
+    updateTotal(); // Day 9: Call after adding
     
-    // 5. Clear fields
+    // Clear fields
     nameInput.value = '';
     amountInput.value = '';
     dateInput.value = '';
 }
 
-// Event Listener (Day 4)
+// =======================================================
+// DAY 4 & 7: INITIALIZATION
+// =======================================================
 form.addEventListener('submit', addExpense);
-
-// Initial Load (Day 7)
-loadExpenses();
-// Day 8: Attach listeners to newly created delete buttons
-document.querySelectorAll('.delete-btn').forEach(button => {
-    button.addEventListener('click', deleteExpense);
-});
-// Day 8: Function to delete an expense
-function deleteExpense(event) {
-    // Get the ID from the custom data attribute we added in renderExpenses
-    const idToDelete = parseInt(event.target.dataset.id);
-
-    // 1. Filter the expenses array to keep only items whose ID does NOT match the one we want to delete.
-    expenses = expenses.filter(expense => expense.id !== idToDelete);
-
-    // 2. Update storage and display
-    saveExpenses();
-    renderExpenses();
-    const idToDelete = parseInt(event.target.dataset.id); // <--- Use parseInt
+loadExpenses(); // Loads data and calls render/updateTotal
+// Add this validation
+if (parseFloat(amount) <= 0 || isNaN(parseFloat(amount))) {
+    alert("Please enter a valid positive amount.");
+    return;
 }
-// Select the total display element
-const totalAmountElement = document.getElementById('total-amount');
-// Function to calculate and update the total expense amount
-function updateTotal() {
-    // 1. Calculate the total sum of all amounts in the expenses array
-    const total = expenses.reduce((sum, expense) => {
-        return sum + expense.amount;
-    }, 0); // Start the sum at 0
-
-    // 2. Format the number to 2 decimal places and update the HTML element
-    totalAmountElement.textContent = `Total: $${total.toFixed(2)}`;
-}
-// ... rest of loadExpenses function
-
-// 3. Display the loaded data
-renderExpenses();
-updateTotal(); // <-- ADD THIS LINE
-// 4. Update display
-renderExpenses(); 
-updateTotal(); // <-- ADD THIS LINE
-
-// 5. Clear fields...
-// 2. Update storage and display
-saveExpenses();
-renderExpenses();
-updateTotal(); // <-- ADD THIS LINE
