@@ -111,3 +111,19 @@ h1 {
 .expense-cost span {
     font-size: 14px;
 }
+#export-btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background: #007bff; /* Blue */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+#export-btn:hover {
+    background: #0056b3; /* Darker blue */
+}
