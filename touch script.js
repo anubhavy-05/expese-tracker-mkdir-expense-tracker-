@@ -118,3 +118,17 @@ function updateTotal() {
     // 2. Format the number to 2 decimal places and update the HTML element
     totalAmountElement.textContent = `Total: $${total.toFixed(2)}`;
 }
+// ... rest of loadExpenses function
+
+// 3. Display the loaded data
+renderExpenses();
+updateTotal(); // <-- ADD THIS LINE
+// 4. Update display
+renderExpenses(); 
+updateTotal(); // <-- ADD THIS LINE
+
+// 5. Clear fields...
+// 2. Update storage and display
+saveExpenses();
+renderExpenses();
+updateTotal(); // <-- ADD THIS LINE
