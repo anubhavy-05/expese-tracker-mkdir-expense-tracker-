@@ -89,3 +89,19 @@ form.addEventListener('submit', addExpense);
 
 // Initial Load (Day 7)
 loadExpenses();
+// Day 8: Attach listeners to newly created delete buttons
+document.querySelectorAll('.delete-btn').forEach(button => {
+    button.addEventListener('click', deleteExpense);
+});
+// Day 8: Function to delete an expense
+function deleteExpense(event) {
+    // Get the ID from the custom data attribute we added in renderExpenses
+    const idToDelete = parseInt(event.target.dataset.id);
+
+    // 1. Filter the expenses array to keep only items whose ID does NOT match the one we want to delete.
+    expenses = expenses.filter(expense => expense.id !== idToDelete);
+
+    // 2. Update storage and display
+    saveExpenses();
+    renderExpenses();
+}
