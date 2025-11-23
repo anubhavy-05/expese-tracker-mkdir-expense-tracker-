@@ -18,3 +18,16 @@ except FileNotFoundError:
 except json.JSONDecodeError:
     print(f"Error: '{FILE_NAME}' is not a valid JSON file.")
     exit()
+    # 2. PERFORM ANALYSIS
+
+# Calculate the total sum
+total_spent = sum(item['amount'] for item in expenses)
+
+# Find the number of transactions
+num_transactions = len(expenses)
+
+# 3. PRINT SUMMARY
+print("\n--- Expense Analysis Summary ---")
+print(f"Total Transactions: {num_transactions}")
+print(f"Total Amount Spent: ${total_spent:.2f}")
+print("------------------------------")
