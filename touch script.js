@@ -1,5 +1,5 @@
 // =======================================================
-// DAY 1, 3, 4, 9: GLOBAL VARIABLES & ELEMENT SELECTION
+// DAY 1, 3, 4, 9, 11: GLOBAL VARIABLES & ELEMENT SELECTION
 // =======================================================
 let expenses = []; 
 
@@ -8,13 +8,13 @@ const nameInput = document.getElementById('expense-name');
 const amountInput = document.getElementById('expense-amount');
 const dateInput = document.getElementById('expense-date');
 const expenseList = document.getElementById('expense-list');
-const totalAmountElement = document.getElementById('total-amount'); // Day 9: Total Element
+const totalAmountElement = document.getElementById('total-amount'); 
+const exportButton = document.getElementById('export-btn'); // Day 11
 
 // =======================================================
 // DAY 9: UPDATE TOTAL
 // =======================================================
 function updateTotal() {
-    // Uses .reduce() to sum all expense amounts
     const total = expenses.reduce((sum, expense) => {
         return sum + expense.amount;
     }, 0); 
@@ -34,32 +34,33 @@ function saveExpenses() {
 // DAY 7: LOAD FUNCTION
 // =======================================================
 function loadExpenses() {
-    const saved = localStorage.getItem('expenses');
+    const saved = localStorage.getItem('expenses'); // Define 'saved' here
     
     if (saved) {
         expenses = JSON.parse(saved);
     } else {
         expenses = [];
+        updateTotal(); // Day 10: Ensures total is $0.00 if no data is found
     }
     
     renderExpenses();
-    updateTotal(); // Day 9: Call after loading
+    updateTotal(); 
 }
 
 // =======================================================
-// DAY 8: DELETE FUNCTION
+// DAY 8 & 10: DELETE FUNCTION
 // =======================================================
 function deleteExpense(event) {
-    // Get the ID from the custom data attribute
-    const idToDelete = parseInt(event.target.dataset.id); 
+    // Day 10: Confirmation dialog
+    if (confirm('Are you sure you want to delete this expense?')) { 
+        const idToDelete = parseInt(event.target.dataset.id); 
 
-    // Filter out the expense with the matching ID
-    expenses = expenses.filter(expense => expense.id !== idToDelete);
+        expenses = expenses.filter(expense => expense.id !== idToDelete);
 
-    // Update storage and display
-    saveExpenses();
-    renderExpenses();
-    updateTotal(); // Day 9: Call after deleting
+        saveExpenses();
+        renderExpenses();
+        updateTotal(); 
+    }
 }
 
 // =======================================================
@@ -91,7 +92,7 @@ function renderExpenses() {
 }
 
 // =======================================================
-// DAY 4 & 5 & 9: ADD EXPENSE HANDLER
+// DAY 4, 5, 9, 10: ADD EXPENSE HANDLER
 // =======================================================
 function addExpense(event) {
     event.preventDefault();
@@ -100,10 +101,16 @@ function addExpense(event) {
     const amount = amountInput.value;
     const date = dateInput.value;
     
-    // Validation
+    // Day 10: Basic Validation
     if (name === '' || amount === '' || date === '') {
         alert("Please fill out all fields.");
         return; 
+    }
+
+    // Day 10: Amount Validation
+    if (parseFloat(amount) <= 0 || isNaN(parseFloat(amount))) {
+        alert("Please enter a valid positive amount.");
+        return;
     }
 
     const expense = {
@@ -116,9 +123,8 @@ function addExpense(event) {
     expenses.push(expense); 
     saveExpenses();
     
-    // Update display and total
     renderExpenses();
-    updateTotal(); // Day 9: Call after adding
+    updateTotal();
     
     // Clear fields
     nameInput.value = '';
@@ -127,56 +133,32 @@ function addExpense(event) {
 }
 
 // =======================================================
-// DAY 4 & 7: INITIALIZATION
+// DAY 11 & 12: EXPORT FUNCTION
+// =======================================================
+function exportData() {
+    if (expenses.length === 0) {
+        alert("The list is empty. Nothing to export.");
+        return;
+    }
+
+    const data = JSON.stringify(expenses, null, 2); 
+    const blob = new Blob([data], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+
+    a.download = 'expense_data_' + new Date().toISOString().slice(0, 10) + '.json';
+    a.href = url;
+
+    document.body.appendChild(a); 
+    a.click(); 
+
+    document.body.removeChild(a); 
+    URL.revokeObjectURL(url);
+}
+
+// =======================================================
+// DAY 4 & 7 & 11: INITIALIZATION
 // =======================================================
 form.addEventListener('submit', addExpense);
-loadExpenses(); // Loads data and calls render/updateTotal
-// Add this validation
-if (parseFloat(amount) <= 0 || isNaN(parseFloat(amount))) {
-    alert("Please enter a valid positive amount.");
-    return;
-}
-if (saved) {
-    // ... (existing code)
-} else {
-    expenses = [];
-    updateTotal(); // <-- NEW: Ensure total is $0.00 if no data is found
-}
-// Wrap the entire logic in a confirmation
-if (confirm('Are you sure you want to delete this expense?')) {
-    const idToDelete = parseInt(event.target.dataset.id);
-
-    expenses = expenses.filter(expense => expense.id !== idToDelete);
-
-    saveExpenses();
-    renderExpenses();
-    updateTotal(); 
-}
-const exportButton = document.getElementById('export-btn');
-// Add event listener (near form.addEventListener)
 exportButton.addEventListener('click', exportData); 
-
-// Define function structure (near your other functions)
-function exportData() {
-    // Day 12 will handle the download logic here
-    console.log("Export button clicked!");
-}
-if (expenses.length === 0) {
-    alert("The list is empty. Nothing to export.");
-    return;
-}
-
-const data = JSON.stringify(expenses, null, 2); // 2 spaces for nice formatting
-const blob = new Blob([data], { type: 'application/json' });
-const url = URL.createObjectURL(blob);
-const a = document.createElement('a');
-// Create a dynamic file name: expense_data_2025-11-23.json
-a.download = 'expense_data_' + new Date().toISOString().slice(0, 10) + '.json';
-a.href = url;
-// Trigger the download
-document.body.appendChild(a); 
-a.click(); 
-
-// Clean up
-document.body.removeChild(a); 
-URL.revokeObjectURL(url);
+loadExpenses();
