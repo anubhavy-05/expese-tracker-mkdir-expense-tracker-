@@ -173,3 +173,10 @@ const a = document.createElement('a');
 // Create a dynamic file name: expense_data_2025-11-23.json
 a.download = 'expense_data_' + new Date().toISOString().slice(0, 10) + '.json';
 a.href = url;
+// Trigger the download
+document.body.appendChild(a); 
+a.click(); 
+
+// Clean up
+document.body.removeChild(a); 
+URL.revokeObjectURL(url);
