@@ -168,3 +168,8 @@ if (expenses.length === 0) {
 
 const data = JSON.stringify(expenses, null, 2); // 2 spaces for nice formatting
 const blob = new Blob([data], { type: 'application/json' });
+const url = URL.createObjectURL(blob);
+const a = document.createElement('a');
+// Create a dynamic file name: expense_data_2025-11-23.json
+a.download = 'expense_data_' + new Date().toISOString().slice(0, 10) + '.json';
+a.href = url;
