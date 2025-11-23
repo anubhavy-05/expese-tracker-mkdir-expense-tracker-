@@ -96,7 +96,6 @@ h2 {
 /* Day 11: Media Query for smaller screens (max-width 600px) */
 @media (max-width: 600px) {
 
-}
 .container {
     width: 95%; /* Make it take up slightly more screen space */
     padding: 0 10px;
@@ -110,6 +109,7 @@ h1 {
 }
 .expense-cost span {
     font-size: 14px;
+}
 }
 #export-btn {
     display: block;
