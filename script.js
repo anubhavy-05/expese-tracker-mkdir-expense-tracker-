@@ -1,8 +1,16 @@
-
 /**
- * Simple Expense Tracker Application
+ * Expense Tracker Application
+ * 
+ * Copyright (c) 2025 anubhavy-05. All Rights Reserved.
+ * 
+ * This software is proprietary and confidential.
+ * Unauthorized copying, modification, distribution, or use of this software,
+ * via any medium, is strictly prohibited without explicit written permission
+ * from the copyright holder.
+ * 
  * Core Logic: Add, Load, Delete Expenses using JavaScript and Local Storage.
  */
+
 let expenses = []; 
 const form = document.getElementById('expense-form');
 const nameInput = document.getElementById('expense-name');

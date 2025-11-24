@@ -45,3 +45,32 @@ To run the analysis script:
 * Add functionality to **Edit** existing expenses.
 * Implement **Category Filtering** (e.g., filter by 'Food' or 'Rent').
 * Display simple charts or graphs to visualize spending habits.
+
+---
+
+## 📱 Mobile Compatibility
+
+This application is fully optimized for mobile devices with:
+- Responsive design that adapts to all screen sizes
+- Touch-friendly buttons and inputs
+- Optimized layouts for tablets and smartphones
+- Smooth interactions on mobile browsers
+
+---
+
+## 📄 License
+
+**Copyright © 2025 anubhavy-05. All Rights Reserved.**
+
+This project is protected under a proprietary license. Unauthorized copying, modification, distribution, or use of this software is strictly prohibited without explicit written permission from the copyright holder.
+
+See the [LICENSE](LICENSE) file for full details.
+
+⚠️ **Warning:** This code is for viewing and educational purposes only. Any commercial use, reproduction, or distribution without permission may result in legal action.
+
+---
+
+## 👤 Author
+
+**anubhavy-05**
+- GitHub: [@anubhavy-05](https://github.com/anubhavy-05)

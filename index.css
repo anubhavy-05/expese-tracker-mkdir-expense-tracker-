@@ -1,26 +1,42 @@
+/**
+ * Expense Tracker Application - Styles
+ * 
+ * Copyright (c) 2025 anubhavy-05. All Rights Reserved.
+ * Unauthorized copying or distribution is strictly prohibited.
+ */
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
 body {
   font-family: Arial, sans-serif;
+  background: #f5f5f5;
+  min-height: 100vh;
+  padding-bottom: 20px;
 }
 
 h1 {
   text-align: center;
   margin-top: 20px;
+  font-size: clamp(1.5rem, 5vw, 2.5rem);
+  padding: 0 15px;
 }
+
 .container {
   width: 90%;
   max-width: 800px;
   margin: 0 auto;
+  padding: 0 15px;
 }
 #expense-form {
-  background: #f9f9f9;
+  background: #fff;
   padding: 20px;
   border-radius: 8px;
   margin-top: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 .form-control {
   /* We will use flexbox to stack the label and input vertically */
@@ -34,24 +50,38 @@ h1 {
 }
 /* This targets all 3 inputs */
 .form-control input {
-  padding: 10px;
+  padding: 12px;
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 16px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.form-control input:focus {
+  outline: none;
+  border-color: #28a745;
+  box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.1);
 }
 #add-btn {
   display: block;
   width: 100%;
-  padding: 10px;
-  background: #28a745; /* A nice green color */
+  padding: 14px;
+  background: #28a745;
   color: white;
   border: none;
   border-radius: 5px;
   font-size: 16px;
+  font-weight: bold;
   cursor: pointer;
+  transition: background 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
 }
-#add-btn:hover {
-  background: #218838; /* A darker green */
+
+#add-btn:hover,
+#add-btn:active {
+  background: #218838;
 }
 h2 {
   margin-top: 30px;
@@ -64,13 +94,30 @@ h2 {
   font-size: 1.2rem;
   color: #333;
 }
+#expense-list {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin-top: 15px;
+}
+
 .expense-item {
   background: #fff;
   border-bottom: 1px solid #eee;
-  padding: 10px;
+  padding: 15px;
   display: flex;
-  justify-content: space-between; /* Pushes items to edges */
+  justify-content: space-between;
   align-items: center;
+  transition: background 0.2s ease;
+}
+
+.expense-item:last-child {
+  border-bottom: none;
+}
+
+.expense-item:active {
+  background: #f9f9f9;
 }
 .expense-info h4 {
   margin: 0;
@@ -84,46 +131,124 @@ h2 {
   margin-right: 10px;
 }
 
+.expense-cost {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .delete-btn {
-  background: #dc3545; /* Red */
+  background: #dc3545;
   color: white;
   border: none;
-  padding: 5px 10px;
+  padding: 8px 12px;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 18px;
+  font-weight: bold;
+  min-width: 36px;
+  min-height: 36px;
+  transition: background 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
 }
-/* Day 11: Media Query for smaller screens (max-width 600px) */
-@media (max-width: 600px) {
 
-.container {
-    width: 95%; /* Make it take up slightly more screen space */
-    padding: 0 10px;
+.delete-btn:hover,
+.delete-btn:active {
+  background: #c82333;
 }
-h1 {
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+  .container {
+    width: 95%;
+    padding: 0 10px;
+  }
+
+  #expense-form {
+    padding: 15px;
+  }
+
+  .form-control input {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+
+  h2 {
+    font-size: 1.3rem;
+  }
+
+  .expense-item {
+    padding: 12px;
+    flex-wrap: wrap;
+  }
+
+  .expense-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .expense-info h4 {
+    font-size: 15px;
+    word-break: break-word;
+  }
+
+  .expense-cost {
+    flex-shrink: 0;
+  }
+
+  .expense-cost span {
+    font-size: 15px;
+  }
+
+  #total-amount {
+    font-size: 1.1rem;
+    text-align: center;
+    padding: 15px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
     font-size: 1.5rem;
     margin-top: 10px;
-}
-.expense-info h4 {
+  }
+
+  .expense-item {
+    padding: 10px;
+  }
+
+  .expense-info h4 {
     font-size: 14px;
-}
-.expense-cost span {
+  }
+
+  .expense-cost span {
     font-size: 14px;
-}
+  }
+
+  .delete-btn {
+    padding: 6px 10px;
+    font-size: 16px;
+  }
 }
 #export-btn {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    background: #007bff; /* Blue */
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    margin-top: 20px;
-    margin-bottom: 10px;
+  display: block;
+  width: 100%;
+  padding: 12px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  transition: background 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
 }
-#export-btn:hover {
-    background: #0056b3; /* Darker blue */
+
+#export-btn:hover,
+#export-btn:active {
+  background: #0056b3;
 }
